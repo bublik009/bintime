@@ -13,7 +13,7 @@ class CreateUserForm extends Model
   public $street;
   public $house;
   public $apartment;
-
+  public $id;
   public function rules()
   {
     return
@@ -39,13 +39,13 @@ class CreateUserForm extends Model
     $modelAddress->apartment = $this->apartment;
     return ($modelAddress->save()) ? true : false;
   }
-  public function delete($id)
+  public function delete()
   {
     $modelTblAddresses = new Addresses();
-    $modelAddress = $modelTblAddresses->findOne($id);
+    $modelAddress = $modelTblAddresses->findOne($this->id);
     $countRows = clone $modelTblAddresses;
 
-    return ($countRows->find()->where(['id' => $id])->count() > 1 && $modelAddress->delete()) ? true : false;
+    return ($countRows->find()->where(['id' => $this->id])->count() > 1 && $modelAddress->delete()) ? true : false;
   }
 }
  ?>

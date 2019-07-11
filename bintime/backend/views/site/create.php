@@ -5,6 +5,9 @@ use yii\widgets\Pjax;
 use yii\bootstrap\Alert;
  $this->title = 'User creating';
  $this->params['breadcrumbs'][] = $this->title;
+ $button = new yii\bootstrap\Button;
+ $button->label = 'Create';
+ $button->options = ['id' => 'create_user' , 'class' => 'btn btn-primary'];
  ?>
  <div class="site-create">
      <h1><?= Html::encode($this->title) ?></h1>
@@ -13,7 +16,7 @@ use yii\bootstrap\Alert;
 
      <div class="row">
          <div class="col-lg-5">
-           <?php $form = ActiveForm::begin(['id' => 'create-form', 'options' => ['data-pjax' => true]]); ?>
+           <?php $form = ActiveForm::begin(['id' => 'create-form']); ?>
 
                <?= $form->field($model, 'login')->textInput(['autofocus' => true]) ?>
 
@@ -40,7 +43,7 @@ use yii\bootstrap\Alert;
                <?= $form->field($model, 'apartment')->textInput() ?>
 
                <div class="form-group">
-                        <?= Html::button('Create', ['class' => 'btn btn-primary', 'id' => 'create_user']) ?>
+                        <?= $button->run() ?>
                </div>
 
            <?php ActiveForm::end(); ?>

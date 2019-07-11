@@ -5,7 +5,7 @@ use yii\base\Model;
 use backend\models\Users;
 use backend\models\Addresses;
 
-class CreateUserForm extends Model
+class User extends Model
 {
   public $login;
   public $firstname;
@@ -19,7 +19,7 @@ class CreateUserForm extends Model
   public $street;
   public $house;
   public $apartment;
-
+  public $id;
   public function rules()
   {
     return
@@ -59,13 +59,13 @@ class CreateUserForm extends Model
     $modelTblAddresses->apartment = $this->apartment;
     return ($modelTblUsers->save() && $modelTblAddresses->save()) ? true : false;
   }
-  public function delete($id)
+  public function delete()
   {
     $modelTblUsers = new Users();
     $modelTblAddresses = new Addresses();
-    $modelUser = $modelTblUsers->findOne($id);
+    $modelUser = $modelTblUsers->findOne($this->id);
 
-    return ($modelUser->delete() && $modelTblAddresses->deleteAll(['user_id' => $id])) ? true : false;
+    return ($modelUser->delete() && $modelTblAddresses->deleteAll(['user_id' => $this->id])) ? true : false;
   }
 }
  ?>

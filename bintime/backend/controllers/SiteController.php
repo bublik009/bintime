@@ -6,9 +6,11 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
-use backend\models\CreateUserForm;
+use backend\models\User;
 use backend\models\Users;
 use backend\models\Addresses;
+use backend\models\UpdateUser;
+
 /**
  * Site controller
  */
@@ -91,7 +93,7 @@ class SiteController extends Controller
     public function actionCreateUser()
     {
 
-      $modelForm = new CreateUserForm();
+      $modelForm = new User();
         return $this->render('create', [
             'model' => $modelForm,
         ]);
@@ -118,16 +120,18 @@ class SiteController extends Controller
         ]);
 
     }
-    public function actionUserInfo();
+    public function actionUserInfo()
     {
       $modelUsr = new Users();
       $modelAddr = new Addresses();
-      if(Yii::$app->request->get())
+      $model = new UpdateUser();
+      if(Yii::$app->request->get('id'))
       {
         $id = Yii::$app->request->get('id');
-        return $this->render('usrinfo', [
-            'modelUsr' => $model->findOne($id),
-            'modelAddr' => $modelUsr->find()->where(['user_id' => $id])
+        return $this->render('userinfo', [
+            'model' => $model,
+            'modelUsr' => $modelUsr->findOne($id),
+            'modelAddr' => $modelAddr->find()->where(['user_id' => $id])->all()
         ]);
       }
 

@@ -5,8 +5,9 @@ use yii\base\Model;
 use backend\models\Users;
 
 
-class CreateUser extends Model
+class UpdateUser extends Model
 {
+  public $id;
   public $login;
   public $firstname;
   public $lastname;
@@ -19,6 +20,7 @@ class CreateUser extends Model
   {
     return
     [
+      [['id'], 'required'],
       [['sex'], 'in', 'range' => [1, 2]],
       [['login'], 'string', 'min' => 2, 'max' => 20],
       [['firstname'], 'string', 'min' => 2, 'max' => 20],
@@ -27,10 +29,11 @@ class CreateUser extends Model
       [['email'], 'email']
     ];
   }
-  public function save($id)
+  public function save()
   {
+
     $modelTblUsers = new Users();
-    $modelUser = $modelTblUsers->findOne($id);
+    $modelUser = $modelTblUsers->findOne($this->id);
     $modelUser->login = $this->login;
     $modelUser->firstname = $this->firstname;
     $modelUser->lastname = $this->lastname;

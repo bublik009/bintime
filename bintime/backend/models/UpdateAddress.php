@@ -13,7 +13,7 @@ class CreateUserForm extends Model
   public $street;
   public $house;
   public $apartment;
-
+  public $id;
   public function rules()
   {
     return
@@ -26,11 +26,11 @@ class CreateUserForm extends Model
       [['apartment'], 'integer', 'min' => 1, 'max' => 10000],
     ];
   }
-  public function save($id)
+  public function save()
   {
 
     $modelTblAddresses = new Addresses();
-    $modelAddress = $modelTblAddresses->findOne($id);
+    $modelAddress = $modelTblAddresses->findOne($this->id);
     $modelAddress->post_index = $this->post_index;
     $modelAddress->country = $this->country;
     $modelAddress->city = $this->city;
