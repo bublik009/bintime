@@ -39,5 +39,13 @@ class CreateUserForm extends Model
     $modelAddress->apartment = $this->apartment;
     return ($modelAddress->save()) ? true : false;
   }
+  public function delete($id)
+  {
+    $modelTblAddresses = new Addresses();
+    $modelAddress = $modelTblAddresses->findOne($id);
+    $countRows = clone $modelTblAddresses;
+
+    return ($countRows->find()->where(['id' => $id])->count() > 1 && $modelAddress->delete()) ? true : false;
+  }
 }
  ?>

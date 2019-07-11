@@ -6,7 +6,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
-use backend\models\CreateUserForm;
+use backend\models\User;
 /**
  * Site controller
  */
@@ -16,7 +16,7 @@ class ApiController extends Controller
   {
     if(Yii::$app->request->isAjax)
     {
-      $model = new CreateUserForm();
+      $model = new User();
 
       if($model->load(Yii::$app->request->post()) && $model->validate() && $model->save())
       {
@@ -24,7 +24,7 @@ class ApiController extends Controller
       }
       else
       {
-        return json_encode(Yii::$app->request->post("CreateUserForm"));
+        return json_encode(Yii::$app->request->post("User"));
       }
     }
   }
@@ -43,7 +43,7 @@ class ApiController extends Controller
         }
         else
         {
-          return json_encode(Yii::$app->request->post("CreateUserForm"));
+          return json_encode(Yii::$app->request->post("User"));
         }
       }
   }
@@ -60,7 +60,7 @@ class ApiController extends Controller
       }
       else
       {
-        return json_encode(Yii::$app->request->post("CreateUserForm"));
+        return json_encode(Yii::$app->request->post("User"));
       }
     }
   }
@@ -69,7 +69,7 @@ class ApiController extends Controller
   {
     if(Yii::$app->request->isAjax)
     {
-      $model = new AddAddress();
+      $model = new Address();
 
       if($model->load(Yii::$app->request->post()) && $model->validate() && $model->save())
       {
@@ -77,7 +77,37 @@ class ApiController extends Controller
       }
       else
       {
-        return json_encode(Yii::$app->request->post("CreateUserForm"));
+        return json_encode(Yii::$app->request->post("User"));
+      }
+  }
+  public function actionDeleteUser()
+  {
+    if(Yii::$app->request->isAjax)
+    {
+      $model = new Address();
+
+      if($model->load(Yii::$app->request->post()) && $model->validate() && $model->delete())
+      {
+        return 'a';
+      }
+      else
+      {
+        return json_encode(Yii::$app->request->post("User"));
+      }
+  }
+  public function actionDeleteAddress()
+  {
+    if(Yii::$app->request->isAjax)
+    {
+      $model = new Address();
+
+      if($model->load(Yii::$app->request->post()) && $model->validate() && $model->delete())
+      {
+        return 'a';
+      }
+      else
+      {
+        return json_encode(Yii::$app->request->post("User"));
       }
   }
 }

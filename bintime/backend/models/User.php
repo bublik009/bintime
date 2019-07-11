@@ -59,5 +59,13 @@ class CreateUserForm extends Model
     $modelTblAddresses->apartment = $this->apartment;
     return ($modelTblUsers->save() && $modelTblAddresses->save()) ? true : false;
   }
+  public function delete($id)
+  {
+    $modelTblUsers = new Users();
+    $modelTblAddresses = new Addresses();
+    $modelUser = $modelTblUsers->findOne($id);
+
+    return ($modelUser->delete() && $modelTblAddresses->deleteAll(['user_id' => $id])) ? true : false;
+  }
 }
  ?>

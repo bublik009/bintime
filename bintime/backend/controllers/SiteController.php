@@ -103,7 +103,7 @@ class SiteController extends Controller
 
       $model = new Users();
 
-        return $this->render('usrlist', [
+        return $this->render('list', [
             'model' => $model->find(),
         ]);
 
@@ -113,7 +113,7 @@ class SiteController extends Controller
 
       $model = new Addresses();
 
-        return $this->render('addrlist', [
+        return $this->render('list', [
             'model' => $model->find(),
         ]);
 
