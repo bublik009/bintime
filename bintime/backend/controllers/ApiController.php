@@ -10,7 +10,7 @@ use backend\models\User;
 use backend\models\Address;
 use backend\models\UpdateUser;
 use backend\models\UpdateAddress;
-
+use backend\models\DeleteAddress;
 /**
  * Site controller
  */
@@ -63,7 +63,7 @@ class ApiController extends Controller
       }
       else
       {
-        return json_encode(Yii::$app->request->post("User"));
+        return json_encode(Yii::$app->request->post());
       }
     }
   }
@@ -104,9 +104,9 @@ class ApiController extends Controller
   {
     if(Yii::$app->request->isAjax)
     {
-      $model = new Address();
+      $model = new DeleteAddress();
 
-      if($model->load(Yii::$app->request->post()) && $model->validate() && $model->delete($model->id))
+      if($model->load(Yii::$app->request->post()) && $model->validate() && $model->delete())
       {
         return 'a';
       }

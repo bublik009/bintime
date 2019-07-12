@@ -10,7 +10,8 @@ use backend\models\User;
 use backend\models\Users;
 use backend\models\Addresses;
 use backend\models\UpdateUser;
-
+use backend\models\UpdateAddress;
+use backend\models\DeleteAddress;
 /**
  * Site controller
  */
@@ -124,14 +125,18 @@ class SiteController extends Controller
     {
       $modelUsr = new Users();
       $modelAddr = new Addresses();
-      $model = new UpdateUser();
+      $modelFormUsr = new UpdateUser();
+      $modelFormAddr = new UpdateAddress();
+      $modelDelAddr = new DeleteAddress();
       if(Yii::$app->request->get('id'))
       {
         $id = Yii::$app->request->get('id');
         return $this->render('userinfo', [
-            'model' => $model,
+            'modelFormUsr' => $modelFormUsr,
+            'modelFormAddr' => $modelFormAddr,
             'modelUsr' => $modelUsr->findOne($id),
-            'modelAddr' => $modelAddr->find()->where(['user_id' => $id])->all()
+            'modelAddr' => $modelAddr->find()->select('id, post_index ,country, city, street, house, apartment')->where(['user_id' => $id])->all(),
+            'modelDelAddr' => $modelDelAddr,
         ]);
       }
 

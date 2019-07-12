@@ -2,10 +2,10 @@
 namespace backend\models;
 
 use yii\base\Model;
-use backend\models\Users;
+
 use backend\models\Addresses;
 
-class CreateUserForm extends Model
+class UpdateAddress extends Model
 {
   public $post_index;
   public $country;
@@ -18,6 +18,7 @@ class CreateUserForm extends Model
   {
     return
     [
+      [['id'], 'required'],
       [['post_index'], 'integer', 'min' => 1, 'max' => 100000],
       [['country'], 'string', 'min' => 2, 'max' => 2],
       [['city'], 'string', 'min' => 1, 'max' => 20],
