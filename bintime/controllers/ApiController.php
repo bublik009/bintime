@@ -60,7 +60,7 @@ class ApiController extends Controller
 
       if($model->load(Yii::$app->request->post()) && $model->validate() && $model->save())
       {
-        return 'a';
+        var_dump($model);
       }
       else
       {
@@ -91,7 +91,7 @@ class ApiController extends Controller
     {
       $model = new DeleteUser();
 
-      if($model->load(Yii::$app->request->post()) && $model->validate() && $model->delete($model->id))
+      if(($model->load(Yii::$app->request->post()) || $model->id = Yii::$app->request->post('id')) && $model->validate() && $model->delete())
       {
         return 'a';
       }
@@ -107,7 +107,7 @@ class ApiController extends Controller
     {
       $model = new DeleteAddress();
 
-      if($model->load(Yii::$app->request->post()) && $model->validate() && $model->delete())
+      if(($model->load(Yii::$app->request->post()) || $model->id = Yii::$app->request->post('id')) && $model->validate() && $model->delete())
       {
         return 'a';
       }

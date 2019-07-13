@@ -17,7 +17,11 @@ echo GridView::widget([
         [
            'format' => 'raw',
            'value' => function($model){
-          	 return Html::a('View', ['site/user-info', 'id' => $model->id]).Html::a('Delete', ['site/user-info&id='.$model->id]);
+          	 return Html::a('View', ['site/user-info', 'id' => $model->id]).' '.
+             '<a onclick = "$.post(\'http://127.0.0.1/index.php?r=api/delete-user\',
+             {id: '.$model->id.'}).done(function() {
+                $(\'[data-key ~='.$model->id.']\').remove();
+              });">Delete</a>';
            },
         ],
       ]

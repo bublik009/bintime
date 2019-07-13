@@ -1,9 +1,9 @@
 <?php
-namespace backend\models;
+namespace app\models;
 
 use yii\base\Model;
 
-use backend\models\Addresses;
+use app\models\Addresses;
 
 class UpdateAddress extends Model
 {
@@ -29,7 +29,6 @@ class UpdateAddress extends Model
   }
   public function save()
   {
-
     $modelTblAddresses = new Addresses();
     $modelAddress = $modelTblAddresses->findOne($this->id);
     $modelAddress->post_index = $this->post_index;

@@ -5,6 +5,82 @@ use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
 use yii\bootstrap\Alert;
+function getAddrRow($Addr)
+{
+  if(!is_object($Addr))
+  {
+    return 'argument is not object';
+  }
+  else
+  {
+    return '
+    <tr id="addrrow_'. $Addr->id.'">
+      <td>
+      <input type="text" id="post_index_'. $Addr->id.'"
+       class="form-control"
+       name="UpdateAddress[city]" value="'. $Addr->post_index.'"
+       style="border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)">
+      </td>
+      <td>
+      <input type="text" id="country_'. $Addr->id.'"
+       class="form-control"
+       name="UpdateAddress[city]" value="'. $Addr->country.'"
+       style="border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)">
+      </td>
+      <td>
+      <input type="text" id="city_'. $Addr->id.'"
+       class="form-control"
+       name="UpdateAddress[city]" value="'. $Addr->city.'"
+       style="border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)">
+      </td>
+      <td>
+      <input type="text" id="street_'. $Addr->id.'"
+       class="form-control"
+       name="UpdateAddress[city]" value="'. $Addr->street.'"
+       style="border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)">
+      </td>
+      <td>
+      <input type="text" id="house_'. $Addr->id.'"
+       class="form-control"
+       name="UpdateAddress[city]" value="'. $Addr->house.'"
+       style="border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)">
+      </td>
+      <td>
+      <input type="text" id="apartment_'. $Addr->id.'"
+       class="form-control"
+       name="UpdateAddress[city]" value="'. $Addr->apartment.'"
+       style="border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)">
+      </td>
+      <td>
+      <button
+       class="btn btn-primary"
+       onclick = "
+
+              $.post(\"http://127.0.0.1/admin/index.php?r=api/update-address\", {
+                   UpdateAddress: {id: '. $Addr->id.',
+                                   post_index: $(\"#post_index_'. $Addr->id.'\").val(),
+                                   country: $(\"#country_'. $Addr->id.'\").val(),
+                                   city: $(\"#city_'. $Addr->id.'\").val(),
+                                   street: $(\"#street_'. $Addr->id.'\").val(),
+                                   house: $(\"#house_'. $Addr->id.'\").val(),
+                                   apartment: $(\"#apartment_'. $Addr->id.'\").val()}
+              });
+       ">Update</button>
+       <button
+        class="btn btn-primary"
+        onclick = "
+        $.post(\"http://127.0.0.1/admin/index.php?r=api/delete-address\", {
+             DeleteAddress: {id: '. $Addr->id.'}
+        }).done(function() {
+                $(\"#addrow_'. $Addr->id .'\").remove();
+         });
+        ">Delete</button>
+      </td>
+    </tr>';
+
+  }
+
+}
 $style = 'border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)';
 
 ?>
@@ -43,49 +119,20 @@ $style = 'border: transparent; background: transparent; -webkit-box-shadow: inse
   <div class="row">
     <h2>Addresses</h2>
     <div class="col-lg-10">
-
+      <table id="address-list">
       <?php foreach ($modelAddr as $Addr): ?>
-
-      <?php $form = ActiveForm::begin(['id' => 'addrinfo-form_'.$Addr->id, 'options' => ['style' => 'display: flex;']]); ?>
-
-      <?= $form->field($modelDelAddr, 'id')->hiddenInput(['value' => $Addr->id])->label(false) ?>
-
-      <?= $form->field($modelFormAddr, 'id')->hiddenInput(['value' => $Addr->id])->label(false) ?>
-
-      <?= $form->field($modelFormAddr, 'post_index')->textInput(['value' => $Addr->post_index, 'style' => $style])->label(false) ?>
-
-      <?= $form->field($modelFormAddr, 'country')->textInput(['value' => $Addr->country , 'style' => $style])->label(false) ?>
-
-      <?= $form->field($modelFormAddr, 'city')->textInput(['value' => $Addr->city , 'style' => $style])->label(false) ?>
-
-      <?= $form->field($modelFormAddr, 'street')->textInput(['value' => $Addr->street , 'style' => $style])->label(false) ?>
-
-      <?= $form->field($modelFormAddr, 'house')->textInput(['value' => $Addr->house , 'style' => $style])->label(false) ?>
-
-      <?= $form->field($modelFormAddr, 'apartment')->textInput(['value' => $Addr->apartment , 'style' => $style])->label(false) ?>
-
-
-
-          <div class="form-group">
-                   <?= Html::button('Update', ['class' => 'btn btn-primary', 'id' => 'update_address',
-                                               'onclick' => '
-                                                 $.post("http://127.0.0.1/admin/index.php?r=api/update-address", $("#addrinfo-form_'.$Addr->id.'").serialize());
-                                                '])  ?>
-          </div>
-          <div class="form-group">
-                   <?= Html::button('Delete', ['class' => 'btn btn-primary', 'id' => 'delete_address', 'style' => 'margin-left: 5px;',
-                                                'onclick' => '
-                                                  $.post("http://127.0.0.1/admin/index.php?r=api/delete-address", $("#addrinfo-form_'.$Addr->id.'").serialize())
-                                                  .done(function() {
-                                                          $("#addrinfo-form_'.$Addr->id.'").remove();
-                                                   });;
-                                                  '])  ?>
-          </div>
-      <?php ActiveForm::end(); ?>
-
-
+        <?= getAddrRow($Addr) ?>
       <?php endforeach; ?>
-
+    </table>
+    <button
+     class="btn btn-primary"
+     onclick = '$("#address-list").append("<?= getAddrRow((object)['id'=>'new',
+                                                                   'post_index'=>'',
+                                                                   'country'=>'',
+                                                                   'city'=>'',
+                                                                   'street'=>'',
+                                                                   'house'=>'',
+                                                                   'apartment'=>'']) ?>");'>Add</button>
       </div>
   </div>
 </div>
@@ -99,9 +146,9 @@ $("input").focus(function(){
   $(this).removeAttr("style");
 });
 $("#update_user").click(function(){
-  $.post("http://127.0.0.1/admin/index.php?r=api/update-user", $("#userinfo-form").serialize());
+  $.post("http://127.0.0.1/index.php?r=api/update-user", $("#userinfo-form").serialize());
 });
 $("#delete_user").click(function(){
-  $.post("http://127.0.0.1/admin/index.php?r=api/delete-user", $("#userinfo-form").serialize());
+  $.post("http://127.0.0.1/index.php?r=api/delete-user", $("#userinfo-form").serialize());
 });
 ');

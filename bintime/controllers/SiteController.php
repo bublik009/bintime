@@ -112,12 +112,12 @@ class SiteController extends Controller
         ]);
 
     }
-    public function actionAddressesList()
+    public function actionAddressList()
     {
 
       $model = new Addresses();
 
-        return $this->render('list', [
+        return $this->render('addrlist', [
             'model' => $model->find(),
         ]);
 

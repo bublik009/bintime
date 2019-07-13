@@ -61,7 +61,7 @@ class User extends Model
   }
   public function delete()
   {
-    exit('asd');
+
     $modelTblUsers = new Users();
     $modelTblAddresses = new Addresses();
     $modelUser = $modelTblUsers->findOne($this->id);

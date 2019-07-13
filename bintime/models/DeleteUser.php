@@ -1,4 +1,4 @@
-z<?php
+<?php
 namespace app\models;
 
 use yii\base\Model;
@@ -20,8 +20,10 @@ class DeleteUser extends Model
   public function delete()
   {
     $modelTblUsers = new Users();
+    $modelTblAddresses = new Addresses();
     $modelUser = $modelTblUsers->findOne($this->id);
-    return ($modelUser->delete()) ? true : false;
+
+    return ($modelUser->delete() && $modelTblAddresses->deleteAll(['user_id' => $this->id])) ? true : false;
   }
 }
  ?>
