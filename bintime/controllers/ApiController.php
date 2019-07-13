@@ -12,6 +12,7 @@ use app\models\UpdateUser;
 use app\models\UpdateAddress;
 use app\models\DeleteAddress;
 use app\models\DeleteUser;
+use app\models\AddAddress;
 /**
  * Site controller
  */
@@ -73,7 +74,7 @@ class ApiController extends Controller
   {
     if(Yii::$app->request->isAjax)
     {
-      $model = new Address();
+      $model = new AddAddress();
 
       if($model->load(Yii::$app->request->post()) && $model->validate() && $model->save())
       {
