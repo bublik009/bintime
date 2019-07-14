@@ -39,7 +39,7 @@ AppAsset::register($this);
         ['label' => 'Create', 'url' => ['/site/create-user']],
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'Users', 'url' => ['/site/user-list']],
-        ['label' => 'Addresses', 'url' => ['/site/adress-list']],
+        ['label' => 'Addresses', 'url' => ['/site/address-list']],
     ];
 
     echo Nav::widget([

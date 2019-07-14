@@ -14,6 +14,10 @@ echo GridView::widget([
     'columns' => [
         'login',
         'firstname',
+        'lastname',
+        'password',
+        'email',
+        'creating_date',
         [
            'format' => 'raw',
            'value' => function($model){

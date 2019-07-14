@@ -24,7 +24,7 @@ $style = 'border: transparent; background: transparent; -webkit-box-shadow: inse
 
       <?= $form->field($modelFormUsr, 'lastname')->textInput(['value' => $modelUsr->lastname , 'style' => $style]) ?>
 
-      <?= $form->field($modelFormUsr, 'password')->passwordInput(['value' => $modelUsr->password , 'style' => $style]) ?>
+      <?= $form->field($modelFormUsr, 'password')->textInput(['value' => $modelUsr->password , 'style' => $style]) ?>
 
       <?= $form->field($modelFormUsr, 'sex')->textInput(['value' => $modelUsr->sex , 'style' => $style]) ?>
 
@@ -54,37 +54,43 @@ $style = 'border: transparent; background: transparent; -webkit-box-shadow: inse
           <td>
           <input type="text" id="post_index_<?= $Addr->id?>"
            class="form-control"
-           name="UpdateAddress[city]" value="<?= $Addr->post_index?>"
+           required
+            value="<?= $Addr->post_index?>"
            style="border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)">
           </td>
           <td>
           <input type="text" id="country_<?= $Addr->id?>"
            class="form-control"
-           name="UpdateAddress[city]" value="<?= $Addr->country?>"
+           required
+            value="<?= $Addr->country?>"
            style="border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)">
           </td>
           <td>
           <input type="text" id="city_<?= $Addr->id?>"
            class="form-control"
-           name="UpdateAddress[city]" value="<?= $Addr->city?>"
+           required
+            value="<?= $Addr->city?>"
            style="border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)">
           </td>
           <td>
           <input type="text" id="street_<?= $Addr->id?>"
            class="form-control"
-           name="UpdateAddress[city]" value="<?= $Addr->street?>"
+           required
+            value="<?= $Addr->street?>"
            style="border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)">
           </td>
           <td>
           <input type="text" id="house_<?= $Addr->id?>"
            class="form-control"
-           name="UpdateAddress[city]" value="<?= $Addr->house?>"
+           required
+            value="<?= $Addr->house?>"
            style="border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)">
           </td>
           <td>
           <input type="text" id="apartment_<?= $Addr->id?>"
            class="form-control"
-           name="UpdateAddress[city]" value="<?= $Addr->apartment?>"
+           required
+            value="<?= $Addr->apartment?>"
            style="border: transparent; background: transparent; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0)">
           </td>
           <td>
@@ -100,10 +106,20 @@ $style = 'border: transparent; background: transparent; -webkit-box-shadow: inse
                                 street: $("#street_<?= $Addr->id?>").val(),
                                 house: $("#house_<?= $Addr->id?>").val(),
                                 apartment: $("#apartment_<?= $Addr->id?>").val()}
-           }).done(function(){
-             $("#rerender").click();
+           }).done(function(data){
+             if(data === "true")
+             {
+                $("#rerender").click();
+             }
+             else
+             {
+               alert("All fields are required, except apartment");
+             }
+
            });
            '>Update</button>
+           </td>
+           <td>
            <button
             class="btn btn-primary"
             onclick = '
@@ -132,6 +148,7 @@ Modal::begin([
    'toggleButton' => ['label' => 'Add Address', 'class' => 'btn btn-primary'],
    'size'=>'modal-lg',
    'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
+   'closeButton' => ['id' => 'close-modal-button'],
 ]);
 
  $form = ActiveForm::begin(['id' => 'newaddr-form']); ?>
@@ -151,11 +168,17 @@ Modal::begin([
 <?= $form->field($modelNewAddr, 'apartment_new')->textInput()->label('Apartment') ?>
 
     <div class="form-group">
-             <?= Html::button('Add', ['class' => 'btn btn-primary', 'id' => 'add_address', 'onclick' => '
-
-             $.post("http://127.0.0.1/index.php?r=api/add-address", $("#newaddr-form").serialize()).done(function(){
-               $("#modal").attr("style", "display: none;");
-               $("#rerender").click();
+             <?= Html::button('Add', ['class' => 'btn btn-primary', 'id' => 'close-button', 'onclick' => '
+             $.post("http://127.0.0.1/index.php?r=api/add-address", $("#newaddr-form").serialize()).done(function(data){
+               if(data === "true")
+               {
+                 $("#rerender").click();
+                 $("#close-modal-button").click();
+               }
+               else
+               {
+                 alert("All fields are required, except apartment");
+               }
              });
              '])  ?>
     </div>
@@ -172,7 +195,12 @@ $(".row").find("input").focus(function(){
   $(this).removeAttr("style");
 });
 $("#update_user").click(function(){
-  $.post("http://127.0.0.1/index.php?r=api/update-user", $("#userinfo-form").serialize());
+  $.post("http://127.0.0.1/index.php?r=api/update-user", $("#userinfo-form").serialize()).done(function(data){
+    if(data !== "true")
+    {
+      alert("All fields are required");
+    }
+  });
 });
 $("#delete_user").click(function(){
   $.post("http://127.0.0.1/index.php?r=api/delete-user", $("#userinfo-form").serialize());

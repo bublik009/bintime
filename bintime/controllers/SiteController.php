@@ -4,6 +4,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\Users;
+use app\models\User;
 use app\models\Addresses;
 use app\models\UpdateUser;
 use app\models\UpdateAddress;

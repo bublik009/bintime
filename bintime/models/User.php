@@ -24,6 +24,7 @@ class User extends Model
   {
     return
     [
+      [['login', 'firstname', 'lastname', 'password', 'email', 'sex', 'post_index', 'country', 'city', 'street', 'house'], 'required'],
       [['sex'], 'in', 'range' => [1, 2]],
       [['login'], 'string', 'min' => 2, 'max' => 20],
       [['firstname'], 'string', 'min' => 2, 'max' => 20],

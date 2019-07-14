@@ -7,7 +7,6 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\LoginForm;
 use app\models\User;
-use app\models\Address;
 use app\models\UpdateUser;
 use app\models\UpdateAddress;
 use app\models\DeleteAddress;
@@ -26,11 +25,11 @@ class ApiController extends Controller
 
       if($model->load(Yii::$app->request->post()) && $model->validate() && $model->save())
       {
-        return 'a';
+        return 'true';
       }
       else
       {
-        return json_encode(Yii::$app->request->post("User"));
+        return 'false';
       }
     }
   }
@@ -44,11 +43,11 @@ class ApiController extends Controller
 
         if($model->load(Yii::$app->request->post()) && $model->validate() && $model->save())
         {
-          return 'a';
+          return 'true';
         }
         else
         {
-          return json_encode(Yii::$app->request->post("User"));
+          return 'false';
         }
       }
   }
@@ -61,11 +60,11 @@ class ApiController extends Controller
 
       if($model->load(Yii::$app->request->post()) && $model->validate() && $model->save())
       {
-        var_dump($model);
+        return 'true';
       }
       else
       {
-        return json_encode(Yii::$app->request->post());
+        return 'false';
       }
     }
   }
@@ -78,11 +77,11 @@ class ApiController extends Controller
 
       if($model->load(Yii::$app->request->post()) && $model->validate() && $model->save())
       {
-        return 'a';
+        return 'true';
       }
       else
       {
-        return json_encode(Yii::$app->request->post("User"));
+        return 'false';
       }
     }
   }
@@ -94,11 +93,11 @@ class ApiController extends Controller
 
       if(($model->load(Yii::$app->request->post()) || $model->id = Yii::$app->request->post('id')) && $model->validate() && $model->delete())
       {
-        return 'a';
+        return 'true';
       }
       else
       {
-        return json_encode(Yii::$app->request->post("User"));
+        return 'false';
       }
     }
   }
@@ -110,11 +109,11 @@ class ApiController extends Controller
 
       if(($model->load(Yii::$app->request->post()) || $model->id = Yii::$app->request->post('id')) && $model->validate() && $model->delete())
       {
-        return 'a';
+        return 'true';
       }
       else
       {
-        return json_encode(Yii::$app->request->post("User"));
+        return 'false';
       }
     }
   }

@@ -19,6 +19,7 @@ class UpdateAddress extends Model
     return
     [
       [['id'], 'required'],
+      [['post_index', 'country', 'city', 'street', 'house'], 'required'],
       [['post_index'], 'integer', 'min' => 1, 'max' => 100000],
       [['country'], 'string', 'min' => 2, 'max' => 2],
       [['city'], 'string', 'min' => 1, 'max' => 20],

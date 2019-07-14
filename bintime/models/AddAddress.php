@@ -19,7 +19,7 @@ class AddAddress extends Model
   {
     return
     [
-      [['user_id'], 'required'],
+      [['user_id', 'post_index_new', 'country_new', 'city_new', 'street_new', 'house_new'], 'required'],
       [['post_index_new'], 'integer', 'min' => 1, 'max' => 100000],
       [['country_new'], 'string', 'min' => 2, 'max' => 2],
       [['city_new'], 'string', 'min' => 1, 'max' => 20],

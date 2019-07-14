@@ -20,7 +20,7 @@ class UpdateUser extends Model
   {
     return
     [
-      [['id'], 'required'],
+      [['id', 'login', 'firstname', 'lastname', 'password', 'email', 'sex'], 'required'],
       [['sex'], 'in', 'range' => [1, 2]],
       [['login'], 'string', 'min' => 2, 'max' => 20],
       [['firstname'], 'string', 'min' => 2, 'max' => 20],
