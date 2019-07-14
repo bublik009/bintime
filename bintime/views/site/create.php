@@ -54,11 +54,14 @@ use yii\bootstrap\Alert;
      $this->registerJs(
       "
       $('#create_user').click(function(){
-        $.post('http://127.0.0.1/index.php?r=api/create-user', $('#create-form').serialize());
-        function onAjaxSuccess(data)
+        $.post('http://127.0.0.1/index.php?r=api/create-user', $('#create-form').serialize())
+        .done(function(data)
         {
-          console.log('adad');
-        }
+          if(data !== 'true')
+          {
+            alert('All fields, except apartment, are required and email must be unique');
+          }
+        });
       });
       "
      );

@@ -126,8 +126,16 @@ $style = 'border: transparent; background: transparent; -webkit-box-shadow: inse
 
             $.post("http://127.0.0.1/admin/index.php?r=api/delete-address", {
                  DeleteAddress: {id: <?= $Addr->id?>}
-            }).done(function() {
-                    document.getElementById("rerender").click();
+            }).done(function(data) {
+              if(data !== "true")
+              {
+                alert("User must have at least one address");
+              }
+              else
+              {
+                document.getElementById("rerender").click();
+              }
+
              });
             '>Delete</button>
           </td>
@@ -198,7 +206,7 @@ $("#update_user").click(function(){
   $.post("http://127.0.0.1/index.php?r=api/update-user", $("#userinfo-form").serialize()).done(function(data){
     if(data !== "true")
     {
-      alert("All fields are required");
+      alert("All fields are required and email must be unique");
     }
   });
 });

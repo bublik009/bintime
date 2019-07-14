@@ -33,6 +33,10 @@ class UpdateUser extends Model
   {
 
     $modelTblUsers = new Users();
+    if($modelTblUsers->find()->where(['email' => $this->email])->count() > 0)
+    {
+      return false;
+    }
     $modelUser = $modelTblUsers->findOne($this->id);
     $modelUser->login = $this->login;
     $modelUser->firstname = $this->firstname;

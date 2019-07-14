@@ -42,6 +42,10 @@ class User extends Model
   public function save()
   {
     $modelTblUsers = new Users();
+    if($modelTblUsers->find()->where(['email' => $this->email])->count() > 0)
+    {
+      return false;
+    }
     $modelTblAddresses = new Addresses();
     $modelTblUsers->login = $this->login;
     $modelTblUsers->firstname = $this->firstname;

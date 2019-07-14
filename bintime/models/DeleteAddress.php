@@ -19,8 +19,12 @@ class DeleteAddress extends Model
   {
 
     $modelTblAddresses = new Addresses();
-    $modelAddress = $modelTblAddresses->findOne($this->id);
 
+    $modelAddress = $modelTblAddresses->findOne($this->id);
+    if($modelTblAddresses->find()->where(['user_id' => $modelAddress->user_id])->count() < 2)
+    {
+      return false;
+    }
     return ($modelAddress->delete()) ? true : false;
   }
 }
